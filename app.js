@@ -14,11 +14,12 @@ app.get('/', (_req, res) => {
   res.redirect('/restaurants');
 });
 app.get('/restaurants', (req, res) => {
-  const reqStr = req.query.keyword?.trim()?.toLowerCase();
+  const keyword = req.query.keyword?.trim()?.toLowerCase();
   res.render('index', {
-    restaurants: reqStr ? restaurants.filter((rest) => (
-      [rest.name, rest.category].some((content) => content.toLowerCase().includes(reqStr))
+    restaurants: keyword ? restaurants.filter((rest) => (
+      [rest.name, rest.category].some((content) => content.toLowerCase().includes(keyword))
     )) : restaurants,
+    keyword: req.query.keyword
   });
 });
 app.get('/restaurant/:id', (req, res) => {

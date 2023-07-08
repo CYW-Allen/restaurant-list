@@ -14,17 +14,12 @@ app.get('/', (_req, res) => {
   res.redirect('/restaurants');
 });
 app.get('/restaurants', (_req, res) => {
-  res.send(`
-    There are total ${restaurants.length} restaurants in the list.<br>
-    List: [${restaurants.map((r) => r.name).join(',')}]
-  `);
+  res.render('index', { restaurants });
 });
-app.get('/restaurant/:id',(req, res) => {
-  const reqRestaurant = restaurants.find((r) => r.id === Number(req.params.id));
-  res.send(`
-    The reataurant name: ${reqRestaurant.name}<br>
-    Description: ${reqRestaurant.description}
-  `);
+app.get('/restaurant/:id', (req, res) => {
+  res.render('detail', {
+    restaurant: restaurants.find((r) => r.id === Number(req.params.id))
+  });
 })
 
 app.listen(SERVER_PORT, () => {

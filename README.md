@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 <!-- PROJECT LOGO -->
 <div align="center">
   <a href="https://github.com/CYW-Allen/restaurant-list">
@@ -44,7 +46,7 @@
 
 ### Additional modifications
 * Make the scrollable area located on the list block.
-* Auto clear the input field when user focus on, and make the previous keyword displayed on above text field.
+* Auto clear the input field when user focus on, and make the previous query string displayed on the above text field.
 * Add prompt when the query result is empty.
 
 ### Built With

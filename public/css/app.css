@@ -102,10 +102,13 @@ body {
 }
 
 .listCont {
-  overflow: hidden;
-}
-.listCont:hover {
   overflow: auto;
+  visibility: hidden;
+}
+
+.listCont:hover,
+.listCont .row {
+  visibility: visible;
 }
 
 .rest-block {

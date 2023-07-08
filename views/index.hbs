@@ -19,6 +19,7 @@
 <div class="container mt-3 mb-3 flex-fill listCont">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
+      {{#if restaurants.length}}
       <div class="row row-cols-sm-3">
         {{#each restaurants as |restaurant|}}
         <a href="/restaurant/{{ restaurant.id }}" class="text-secondary">
@@ -41,6 +42,9 @@
         </a>
         {{/each}}
       </div>
+      {{else}}
+      查無符合該條件的餐廳...
+      {{/if}}
     </div>
   </div>
 </div>

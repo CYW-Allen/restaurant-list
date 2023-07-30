@@ -17,11 +17,7 @@ router.get('/restaurants', async (req, res, next) => {
 });
 
 router.get('/restaurants/new', (_req, res) => {
-  res.send(`Get page of new restaurnat`);
-});
-
-router.post('/restaurants', async (req, res, next) => {
-  res.send(`Create new restaurnat`);
+  res.render('form');
 });
 
 router.get('/restaurants/:id', async (req, res, next) => {
@@ -34,16 +30,42 @@ router.get('/restaurants/:id', async (req, res, next) => {
   }
 });
 
-router.get('/restaurants/:id/edit', (req, res) => {
-  res.send(`Get page of modifing restaurnat ${req.params.id} information`);
+router.get('/restaurants/:id/edit', async (req, res, next) => {
+  try {
+    const restaurant = await tools.getRestaurant(req.params.id);
+
+    res.render('form', { restaurant } );
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post('/restaurants', async (req, res, next) => {
+  try {
+    const restaurantId = await tools.insertRestaurant(req.body);
+
+    res.redirect(`/restaurants/${restaurantId}`);
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.put('/restaurants/:id', async (req, res, next) => {
-  res.send(`Modify restaurnat ${req.params.id} information`);
+  try {
+    await tools.updateRestaurant(req.params.id, req.body);
+    res.redirect(`/restaurants/${req.params.id}`);
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.delete('/restaurants/:id', async (req, res, next) => {
-  res.send(`Delete restaurnat ${req.params.id}`);
+  try {
+    await tools.deleteRestaurant(req.params.id);
+    res.redirect('/restaurants');
+  } catch (e) {
+    next(e);
+  }
 });
 
 module.exports = router;

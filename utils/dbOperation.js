@@ -22,10 +22,38 @@ exports.listRestaurnats = async (keyword) => {
 
 exports.getRestaurant = async (id) => {
   try {
-    return await Restaurant.findByPk(id, {
-      attributes: ['name', 'category', 'location', 'google_map', 'phone', 'description' ,'image'],
-      raw: true,
-    });
+    return await Restaurant.findByPk(id, { raw: true });
+  } catch (e) {
+    throw e;
+  }
+}
+
+function examInput(info) {
+  if (!info.name) throw new Error('Restaurant name is necessary');
+  if (!info.location) throw new Error('Restaurant location is necessary');
+}
+
+exports.insertRestaurant = async (info) => {
+  try {
+    examInput(info);
+    return (await Restaurant.create(info)).id;
+  } catch (e) {
+    throw e;
+  }
+}
+
+exports.updateRestaurant = async (id, info) => {
+  try {
+    examInput(info);
+    await Restaurant.update(info, { where: { id } });
+  } catch (e) {
+    throw e;
+  }
+}
+
+exports.deleteRestaurant = async (id) => {
+  try {
+    await Restaurant.destroy({ where: { id } });
   } catch (e) {
     throw e;
   }

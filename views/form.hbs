@@ -1,0 +1,78 @@
+<h1 class="mb-1 restaurant-show-title">餐廳表單</h1>
+<div class="container my-2">
+  <form action="{{formAction restaurant}}" method="POST" class="needs-validation" id="restaurantForm" novalidate>
+    <div class="row mb-3">
+      <label for="name" class="col-2 col-form-label fw-bold">餐廳名稱 (<span class="text-danger">必填</span>) </label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="name" id="name" value="{{restaurant.name}}" required>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="name_en" class="col-2 col-form-label fw-bold">餐廳英文名</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="name_en" id="name_en" value="{{restaurant.name_en}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="category" class="col-2 col-form-label fw-bold">餐廳類別</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="category" id="category" value="{{restaurant.category}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="image" class="col-2 col-form-label fw-bold">餐廳圖片</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="image" id="image" placeholder="圖片網址...."
+          value="{{restaurant.image}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="location" class="col-2 col-form-label fw-bold">餐廳地址 (<span class="text-danger">必填</span>)</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="location" id="location" required value="{{restaurant.location}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="phone" class="col-2 col-form-label fw-bold">餐廳電話</label>
+      <div class="col-10">
+        <input type="tel" class="form-control" name="phone" id="phone" value="{{restaurant.phone}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="google_map" class="col-2 col-form-label fw-bold">MAP連結</label>
+      <div class="col-10">
+        <input type="text" class="form-control" name="google_map" id="google_map" placeholder="Google map url...."
+          value="{{restaurant.google_map}}">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="rating" class="col-2 col-form-label fw-bold">餐廳評分</label>
+      <div class="col-10">
+        <div class="input-group">
+          <output class="me-3" for="rating">{{initRating restaurant.rating}}</output>
+          <input type="range" class="form-range " style="width: 95%;" min="0" max="5" step="0.1" value="{{initRating restaurant.rating}}" name="rating"
+            id="rating" oninput="this.previousElementSibling.value = this.value">
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="fw-bold">餐廳簡介</label>
+      <textarea class="form-control" name="description" id="description" aria-label="餐廳簡介">{{restaurant.description}}</textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary" id="createRestaurant">表單送出</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const restaurantForm = document.getElementById('restaurantForm');
+
+  restaurantForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    restaurantForm.classList.add('was-validated');
+    if (restaurantForm.checkValidity()) restaurantForm.submit();
+  })
+</script>

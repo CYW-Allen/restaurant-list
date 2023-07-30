@@ -4,13 +4,21 @@
   "description": "A app for listing restaurants",
   "main": "app.js",
   "scripts": {
+    "dbcheck": "node utils/checkDB.js",
+    "updateschema": "npx sequelize db:migrate",
+    "initdb": "npm run dbcheck && npm run updateschema",
+    "seed": "npx sequelize db:seed:all",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "author": "Allen Chen",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-handlebars": "^7.0.7"
+    "express-handlebars": "^7.0.7",
+    "mysql2": "^3.5.2",
+    "sequelize": "^6.32.1",
+    "sequelize-cli": "^6.6.1"
   }
 }

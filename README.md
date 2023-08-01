@@ -37,17 +37,21 @@
 ## About The Project
 
 <div align="center">
-  <img src="public/img/restaurant_list-demo.gif" alt="project demo" style="width: 50%">
+  <img src="public/img/restaurant_list-demo.gif" alt="project demo" style="width: 70%">
 </div>
 
 ### Main Function
-* List all restaurants in restaurant.json.
-* Filter the restaurants with some specific keywords.
+* Create new restaurant infos.
+* Edit the restaurant infos in the list.
+* List all restaurants' infos stored in mysql db.
+* Filter the restaurants with some specific keyword.
+* Delete unwanted restaurant infos.
 
 ### Additional modifications
 * Make the scrollable area located on the list block.
 * Auto clear the input field when user focus on, and make the previous query string displayed on the above text field.
 * Add prompt when the query result is empty.
+* Lazyload restaurant image.
 
 ### Built With
 
@@ -71,8 +75,17 @@
    ```sh
    npm install
    ```
+3. Initiate mysql service 
+4. Initialize the database (optional) 
+   ```sh
+   npm run initdb
+   ```
+5. Insert some seed data (optional)
+   ```sh
+   npm run seed
+   ```
 
-After the installation, now you can run the app by the following command.
+After above steps, now you can run the app by the following command.
   ```sh
   npm start
   ```

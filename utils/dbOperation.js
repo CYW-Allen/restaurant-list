@@ -1,5 +1,6 @@
 const Restaurant = require('../models').Restaurant;
 const { Op } = require('sequelize');
+const { sanitizeInput } = require('./tools');
 
 exports.listRestaurnats = async (keyword) => {
   try {
@@ -28,14 +29,9 @@ exports.getRestaurant = async (id) => {
   }
 }
 
-function examInput(info) {
-  if (!info.name) throw new Error('Restaurant name is necessary');
-  if (!info.location) throw new Error('Restaurant location is necessary');
-}
-
 exports.insertRestaurant = async (info) => {
   try {
-    examInput(info);
+    sanitizeInput(info);
     return (await Restaurant.create(info)).id;
   } catch (e) {
     throw e;
@@ -44,7 +40,7 @@ exports.insertRestaurant = async (info) => {
 
 exports.updateRestaurant = async (id, info) => {
   try {
-    examInput(info);
+    sanitizeInput(info);
     await Restaurant.update(info, { where: { id } });
   } catch (e) {
     throw e;

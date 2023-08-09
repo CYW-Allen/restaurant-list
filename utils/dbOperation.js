@@ -5,7 +5,6 @@ const { sanitizeInput } = require('./tools');
 exports.listRestaurnats = async (keyword) => {
   try {
     return await Restaurant.findAll({
-      attributes: ['id', 'image', 'name', 'category', 'rating'],
       raw: true,
       ...(keyword && {
         where: {

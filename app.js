@@ -10,6 +10,7 @@ const hbs = create({
   helpers: {
     formAction: (data) => data ? `/restaurants/${data.id}?_method=PUT` : '/restaurants',
     initRating: (data) => data || 5,
+    jsonStr: (context) => JSON.stringify(context),
   },
 })
 const PORT = process.env.PORT || 3000;

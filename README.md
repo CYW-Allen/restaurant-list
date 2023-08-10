@@ -46,6 +46,7 @@
 * List all restaurants' infos stored in mysql db.
 * Filter the restaurants with some specific keyword.
 * Delete unwanted restaurant infos.
+* Sort restaurant infos based on some rules.
 
 ### Additional modifications
 * Make the scrollable area located on the list block.

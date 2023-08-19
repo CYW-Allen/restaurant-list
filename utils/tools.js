@@ -58,4 +58,11 @@ function sanitizeInput(input) {
   };
 }
 
-module.exports = { throwInputErr, errHandler, examineInput, sanitizeInput }
+function getDataWithoutId(oriData) {
+  return Object.entries(oriData).reduce((result, [key, val]) => {
+    if (key !== 'id') result[key] = val;
+    return result;
+  }, {});
+}
+
+module.exports = { throwInputErr, errHandler, examineInput, sanitizeInput, getDataWithoutId }

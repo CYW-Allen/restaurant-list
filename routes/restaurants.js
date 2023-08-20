@@ -34,7 +34,6 @@ router.get('/new', (_req, res) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const restaurant = await Restaurant.findByPk(req.params.id, { raw: true });
-    console.log(restaurant)
 
     if (!restaurant) {
       req.flash('fail', '需求餐廳不存在');

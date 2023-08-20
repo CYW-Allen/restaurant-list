@@ -18,14 +18,15 @@
           <div class="dropdown w-100">
             <a class="btn btn-light dropdown-toggle d-flex justify-content-between align-items-center" href="#"
               role="button" id="sortTypeDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-              Sort
+              清單排序
             </a>
 
-            <ul class="dropdown-menu w-100" aria-labelledby="sortTypeDropDown" id="sortTypeList">
-              <li><button class="dropdown-item" type="button" onclick="sortRestaurants(event)">A -> Z</button></li>
-              <li><button class="dropdown-item" type="button" onclick="sortRestaurants(event)">Z -> A</button></li>
-              <li><button class="dropdown-item" type="button" onclick="sortRestaurants(event)">類別</button></li>
-              <li><button class="dropdown-item" type="button" onclick="sortRestaurants(event)">地區</button></li>
+            <ul class="dropdown-menu w-100" aria-labelledby="sortTypeDropDown" id="sortTypeList" onclick="sortRestaurants(event)">
+              <li><button class="dropdown-item sortBtn" type="button">A -> Z</button></li>
+              <li><button class="dropdown-item sortBtn" type="button">Z -> A</button></li>
+              <li><button class="dropdown-item sortBtn" type="button">評價 高 -> 低</button></li>
+              <li><button class="dropdown-item sortBtn" type="button">類別</button></li>
+              <li><button class="dropdown-item sortBtn" type="button">地區</button></li>
             </ul>
           </div>
         </div>
@@ -61,11 +62,11 @@
             </div>
           </a>
           <div class="d-flex justify-content-end flex-wrap">
-            <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-primary" id="edit-{{ @index }}">Edit</a>
-            <a href="/restaurants/{{ restaurant.id }}" class="btn btn-info ms-1" id="detail-btn-{{ @index }}">Detail</a>
+            <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-primary" id="edit-{{ @index }}">編輯</a>
+            <a href="/restaurants/{{ restaurant.id }}" class="btn btn-info ms-1" id="detail-btn-{{ @index }}">詳細</a>
             <form class="ms-1" action="/restaurants/{{ restaurant.id }}?_method=DELETE" id="deleteForm-{{ @index }}"
               method="POST" style="display: inline-block;">
-              <button class="btn btn-danger" type="submit" onclick="return confirm('確定要刪除此餐廳?');">Delete</button>
+              <button class="btn btn-danger" type="submit" onclick="return confirm('確定要刪除此餐廳?');">刪除</button>
             </form>
           </div>
         </div>
@@ -103,6 +104,8 @@
   }
 
   function sortRestaurants(event) {
+    if (!event.target.matches('.sortBtn')) return;
+    
     const sortType = event.target.textContent;
 
     sortTypeDropDown.textContent = `Sort: ${sortType}`;
@@ -112,6 +115,9 @@
         break;
       case 'Z -> A':
         restaurants.sort((a, b) => b.name_en.localeCompare(a.name_en));
+        break;
+      case '評價 高 -> 低':
+        restaurants.sort((a, b) => b.rating - a.rating);
         break;
       case '類別':
         restaurants.sort((a, b) => a.category.localeCompare(b.category));

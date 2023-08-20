@@ -77,16 +77,16 @@
    ```sh
    npm install
    ```
-3. Initiate mysql service 
-4. Initialize the database (optional) 
+3. Check .env.example file to set the app required env vars in .env file
+4. Initiate mysql service 
+5. Initialize the database (optional) 
    ```sh
    npm run initdb
    ```
-5. Insert some seed data (optional)
+6. Insert some seed data (optional)
    ```sh
    npm run seed
    ```
-6. Check .env.example file to set the app required env vars in .env file
 
 After above steps, now you can run the app by the following command.
   ```sh

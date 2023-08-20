@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Restaurant.belongsTo(models.User, { foreignKey: 'userId' });
+      Restaurant.belongsTo(models.User);
     }
   }
   Restaurant.init({
@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     rating: DataTypes.FLOAT,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Restaurant',

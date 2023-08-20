@@ -1,27 +1,3 @@
-function throwInputErr(msg) {
-  const err = new Error();
-  err.name = 'invalidInput';
-  err.statusCode = 400;
-  err.message = msg;
-  throw err;
-}
-
-function errHandler(err, _req, res, _next) {
-  if (err.name === 'invalidInput') {
-    res.status(err.statusCode).render('error', { errorMsg: err.message });
-  } else {
-    res.status(500).render('error', { errorMsg: 'Internal server error!' });
-  }
-}
-
-function examineInput(input) {
-  const inputName = input?.name?.replace(/\s/g, '');
-  const inputLocation = input?.location?.replace(/\s/g, '');
-
-  if (!inputName || !inputName.length) throwInputErr('Invalid restaurant name');
-  if (!inputLocation || !inputLocation.length) throwInputErr('Invalid restaurant location');
-}
-
 function sanitizeUrl(urlString) {
   try {
     new URL(urlString);
@@ -65,4 +41,4 @@ function getDataWithoutId(oriData) {
   }, {});
 }
 
-module.exports = { throwInputErr, errHandler, examineInput, sanitizeInput, getDataWithoutId }
+module.exports = { sanitizeInput, getDataWithoutId }

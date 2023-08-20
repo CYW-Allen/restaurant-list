@@ -15,17 +15,18 @@ header {
   position: relative;
   z-index: -1;
   margin: -5px;
-  height: 320px;
+  height: 200px;
   background: #dddddd center center url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg');
   background-size: cover;
   filter: blur(3px);
 }
 
 .search-bar {
-  position: absolute;
-  top: 90px;
+  position: fixed;
+  top: 100px;
   left: 0;
   right: 0;
+  z-index: 2;
 }
 
 .search-bar .search-bar-outer {
@@ -78,12 +79,16 @@ header {
 }
 
 .restaurant-show-title {
-  position: relative;
-  top: -100px;
+  position: fixed;
+  margin: auto;
+  top: 150px;
+  left: 0;
+  right: 0;
   color: white;
   text-align: center;
   font-size: 3rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
 }
 
 @media screen and (max-width: 992px) {
@@ -109,15 +114,11 @@ body {
   height: 100vh;
 }
 
-.listCont {
-  overflow: auto;
-  visibility: hidden;
+.mainArea {
+  position: relative;
+  overflow-y: auto;
 }
 
-.listCont:hover,
-.listCont .row {
-  visibility: visible;
-}
 
 .rest-block {
   background-color: transparent;
@@ -126,4 +127,14 @@ body {
 .rest-block:hover {
   transform: translate3d(0px, -1px, 0px);
   box-shadow: 10px 10px 20px rgba(128, 128, 128, 0.8);
+}
+
+.msgAlert {
+  width: 500px;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  margin: auto;
 }

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link href="/css/app.css" rel="stylesheet">
   <title>Restaurant List</title>
 </head>
@@ -20,13 +21,22 @@
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
           我的餐廳清單
         </a>
-        <a href="/restaurants/new" class="btn btn-success">Create</a>
+        {{#if user}}
+        <div>
+          <a href="/restaurants/new" class="btn btn-success">Create</a>
+          {{> logout}}
+        </div>
+        {{/if}}
       </div>
     </nav>
 
     <div class="banner"></div>
   </header>
-  {{{ body }}}
+
+  <div class="col mainArea">
+    {{{ body }}}
+  </div>
+
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
   <script>

@@ -1,6 +1,6 @@
 <!-- search bar -->
 <div class="container search-bar">
-  <div class="row px-4">
+  <div class="row px-3">
     <div class="search-bar-outer col-md-10 mx-auto">
       <div class="search-bar-inner row">
         <form action="/restaurants" class="col-4">
@@ -15,7 +15,7 @@
         </form>
         <div class="col-4"></div>
         <div class="col-4 d-flex align-items-end">
-          <div class="dropdown w-100" style="border: 1px solid grey;">
+          <div class="dropdown w-100">
             <a class="btn btn-light dropdown-toggle d-flex justify-content-between align-items-center" href="#"
               role="button" id="sortTypeDropDown" data-bs-toggle="dropdown" aria-expanded="false">
               Sort
@@ -34,7 +34,7 @@
   </div>
 </div>
 <!-- restaurant list -->
-<div class="container mt-3 mb-3 flex-fill listCont">
+<div class="container mt-3">
   <div class="row">
     <div class="col-md-10 mx-auto">
       {{#if restaurants.length}}
@@ -63,8 +63,8 @@
           <div class="d-flex justify-content-end flex-wrap">
             <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-primary" id="edit-{{ @index }}">Edit</a>
             <a href="/restaurants/{{ restaurant.id }}" class="btn btn-info ms-1" id="detail-btn-{{ @index }}">Detail</a>
-            <form class="ms-1" action="/restaurants/{{ restaurant.id }}?_method=DELETE" id="deleteForm-{{ @index }}" method="POST"
-              style="display: inline-block;">
+            <form class="ms-1" action="/restaurants/{{ restaurant.id }}?_method=DELETE" id="deleteForm-{{ @index }}"
+              method="POST" style="display: inline-block;">
               <button class="btn btn-danger" type="submit" onclick="return confirm('確定要刪除此餐廳?');">Delete</button>
             </form>
           </div>
@@ -72,11 +72,14 @@
         {{/each}}
       </div>
       {{else}}
+      {{#if keyword}}
       查無符合該條件的餐廳...
+      {{/if}}
       {{/if}}
     </div>
   </div>
 </div>
+{{> message}}
 
 <script>
   const restaurants = JSON.parse('{{{jsonStr restaurants}}}');

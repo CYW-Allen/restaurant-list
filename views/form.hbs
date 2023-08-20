@@ -1,5 +1,5 @@
-<h1 class="mt-3 restaurant-show-title">餐廳表單</h1>
-<div class="mb-3 container flex-fill">
+<h1 class="restaurant-show-title">餐廳表單</h1>
+<div class="mt-5 container flex-fill">
   <form action="{{formAction restaurant}}" method="POST" class="needs-validation" id="restaurantForm" novalidate>
     <div class="row mb-3">
       <label for="name" class="col-2 col-form-label fw-bold">餐廳名稱 (<span class="text-danger">必填</span>) </label>
@@ -73,6 +73,7 @@
     </div>
   </form>
 </div>
+{{> message}}
 
 <script>
   const restaurantForm = document.getElementById('restaurantForm');

@@ -37,7 +37,7 @@
 ## About The Project
 
 <div align="center">
-  <img src="public/img/restaurant_list-demo.gif" alt="project demo" style="width: 70%">
+  <img src="public/img/restaurant_list-demo.gif" alt="project demo" style="width: 80%">
 </div>
 
 ### Main Function
@@ -47,6 +47,7 @@
 * Filter the restaurants with some specific keyword.
 * Delete unwanted restaurant infos.
 * Sort restaurant infos based on some rules.
+* Add account login and register (support fb oauth2)
 
 ### Additional modifications
 * Make the scrollable area located on the list block.
@@ -57,7 +58,7 @@
 ### Built With
 
 * [![Express][Express.js]][Express-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![Bootswatch][Bootswatch.com]][Bootswatch-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -108,5 +109,5 @@ After above steps, now you can run the app by the following command.
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Express.js]: https://img.shields.io/badge/Express.js-rgb(194%2C%20234%2C%20255)?style=for-the-badge&logo=nodedotjs&logoColor=green
 [Express-url]: https://expressjs.com/
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
+[Bootswatch.com]: https://img.shields.io/badge/Bootswatch-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootswatch-url]: https://bootswatch.com/spacelab/

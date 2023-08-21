@@ -3,16 +3,13 @@
   <div class="row px-3">
     <div class="search-bar-outer col-md-10 mx-auto">
       <div class="search-bar-inner row">
-        <form action="/restaurants" class="col-4">
-          <h4 class="mb-2">尋找餐廳：{{ keyword }}</h4>
+        <div action="/restaurants" class="col-4">
+          <h4 class="mb-2">尋找餐廳： <span id="curKeyword"></span></h4>
           <div class="input-group">
             <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-              value="{{ keyword }}" onfocus="this.value=''" aria-describedby="search-button">
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-            </div>
+              oninput="handleChange(this.value)" aria-describedby="search-button">
           </div>
-        </form>
+        </div>
         <div class="col-4"></div>
         <div class="col-4 d-flex align-items-end">
           <div class="dropdown w-100">
@@ -21,7 +18,7 @@
               清單排序
             </a>
 
-            <ul class="dropdown-menu w-100" aria-labelledby="sortTypeDropDown" id="sortTypeList" onclick="sortRestaurants(event)">
+            <ul class="dropdown-menu w-100" aria-labelledby="sortTypeDropDown" id="sortTypeList" onclick="sortRestaurants('manual', event)">
               <li><button class="dropdown-item sortBtn" type="button">A -> Z</button></li>
               <li><button class="dropdown-item sortBtn" type="button">Z -> A</button></li>
               <li><button class="dropdown-item sortBtn" type="button">評價 高 -> 低</button></li>
@@ -39,7 +36,7 @@
   <div class="row">
     <div class="col-md-10 mx-auto">
       {{#if restaurants.length}}
-      <div class="row row-cols-3 g-3 ms-2">
+      <div class="row row-cols-3 g-3 ms-2" id="restaurantField">
         {{#each restaurants as |restaurant|}}
         <div class="col mb-3">
           <a href="/restaurants/{{ restaurant.id }}" class="text-secondary" id="detail-{{ @index }}">
@@ -83,10 +80,73 @@
 {{> message}}
 
 <script>
-  const restaurants = JSON.parse('{{{jsonStr restaurants}}}');
+  const originRestaurants = JSON.parse('{{{jsonStr restaurants}}}');
+  let restaurants = originRestaurants;
   const sortTypeDropDown = document.getElementById('sortTypeDropDown');
+  let curSortType = '';
 
-  function updateHtml() {
+  function debounce(func, timeout = 500) {
+    let timer;
+    return function(...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(args), timeout);
+    }
+  }
+
+  function popularList() {
+    return restaurants.reduce((html, restaurant, index) => {
+      html += `
+        <div class="col mb-3">
+          <a href="/restaurants/${restaurant.id}" class="text-secondary" id="detail-${index}">
+            <div class="card mb-2 rest-block">
+              <img class="card-img-top lazy" id="img-${index}" src="/img/loading.gif"
+                data-src="${restaurant.image}" alt="${restaurant.name}">
+              <div class="card-body p-3">
+                <h6 class="card-title mb-1 text-truncate" id="name-${index}">${restaurant.name}</h6>
+
+                <div class="restaurant-category mb-1 text-truncate" id="cate-${index}">
+                  <i class="fas fa-utensils"></i>
+                  <span>${restaurant.category}</span>
+                </div>
+
+                <span class="badge rounded-pill bg-danger font-weight-normal" id="rating-${index}">
+                  <span>${restaurant.rating}</span>
+                  <i class="fas fa-star fa-xs"></i>
+                </span>
+              </div>
+            </div>
+          </a>
+          <div class="d-flex justify-content-end flex-wrap">
+            <a href="/restaurants/${restaurant.id}/edit" class="btn btn-primary" id="edit-${index}">編輯</a>
+            <a href="/restaurants/${restaurant.id}" class="btn btn-info ms-1" id="detail-btn-${index}">詳細</a>
+            <form class="ms-1" action="/restaurants/${restaurant.id}?_method=DELETE" id="deleteForm-${index}"
+              method="POST" style="display: inline-block;">
+              <button class="btn btn-danger" type="submit" onclick="return confirm('確定要刪除此餐廳?');">刪除</button>
+            </form>
+          </div>
+        </div>
+      `;
+      return html;
+    }, '');
+  }
+
+  function filterRestaurants(keyword) {
+    restaurants = originRestaurants.filter((restaurant) => (
+      restaurant.name.includes(keyword) || restaurant.category.includes(keyword)
+    ));
+    sortRestaurants('auto');
+    document.getElementById('restaurantField').innerHTML = popularList();
+    lazyloadInst.update();
+  }
+
+  const processFilter = debounce(filterRestaurants);
+
+  function handleChange(keyword) {
+    document.getElementById('curKeyword').textContent = keyword;
+    processFilter(keyword);
+  } 
+
+  function updateList() {
     restaurants.forEach((restaurant, index) => {
       document.getElementById(`detail-${index}`).setAttribute('href', `/restaurants/${restaurant.id}`);
 
@@ -105,12 +165,13 @@
     });
   }
 
-  function sortRestaurants(event) {
-    if (!event.target.matches('.sortBtn')) return;
+  function sortRestaurants(trigger, event) {
+    if (trigger === 'manual' && !event.target.matches('.sortBtn')) return;
     
-    const sortType = event.target.textContent;
+    const sortType = trigger === 'manual' ? event.target.textContent : curSortType;
+    curSortType = sortType;
 
-    sortTypeDropDown.textContent = `Sort: ${sortType}`;
+    if (trigger === 'manual') sortTypeDropDown.textContent = `Sort: ${sortType}`;
     switch (sortType) {
       case 'A -> Z':
         restaurants.sort((a, b) => a.name_en.localeCompare(b.name_en));
@@ -130,7 +191,9 @@
       default:
     }
 
-    updateHtml();
-    lazyloadInst.update();
+    if (trigger === 'manual') {
+      updateList();
+      lazyloadInst.update();
+    }
   }
 </script>

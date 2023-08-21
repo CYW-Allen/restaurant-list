@@ -6,21 +6,23 @@ const { sanitizeInput } = require('../utils/tools')
 
 router.get('/', async (req, res, next) => {
   try {
-    const keyword = req.query.keyword?.trim()?.toLowerCase();
+    // const keyword = req.query.keyword?.trim()?.toLowerCase();
     const restaurants = await Restaurant.findAll({
       raw: true,
       where: {
         userId: req.user.id,
+        /*
         ...(keyword && {
           [Op.or]: [
             { name: { [Op.like]: `%${keyword}%` } },
             { category: { [Op.like]: `%${keyword}%` } },
           ]
         }),
+        */
       },
     });
 
-    res.render('index', { restaurants, keyword: req.query.keyword });
+    res.render('index', { restaurants }); //, keyword: req.query.keyword
   } catch (e) {
     e.alertMsg = '餐廳清單獲取失敗';
     next(e);

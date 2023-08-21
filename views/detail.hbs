@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
 
-      <p class="mb-1">
+      <p class="mb-1 text-break">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>
           類別：
@@ -18,7 +18,7 @@
         {{ restaurant.category }}
       </p>
 
-      <p class="mb-1">
+      <p class="mb-1 text-break">
         <span class="text-secondary">
           <i class="fas fa-map-marker-alt pr-2"></i>
           地址：
@@ -37,11 +37,11 @@
         {{ restaurant.phone }}
       </p>
 
-      <p class="mb-5">
+      <p class="mb-5 text-break">
         {{ restaurant.description }}
       </p>
 
-      <img class="rounded mx-auto d-block mb-4 w-100 lazyload" src="/img/loading.gif" data-src="{{ restaurant.image }}"
+      <img class="rounded mx-auto d-block mb-4 w-100 lazy" src="/img/loading.gif" data-src="{{ restaurant.image }}"
         alt="{{ restaurant.name }}" style="max-width: 600px;max-height:400px">
     </div>
   </div>

@@ -9,6 +9,7 @@ function sanitizeUrl(urlString) {
 
 function sanitizePhone(phone) {
   const phoneNum = phone.replace(/[-\s]/g, '');
+  console.log('phoneNum', typeof phoneNum, phoneNum)
   return phoneNum.length > 10 || phoneNum.length < 9 || isNaN(phoneNum)
     ? '' : phoneNum;
 }
@@ -22,8 +23,8 @@ function sanitizeRating(rating) {
 
 function sanitizeInput(input) {
   return {
-    name: input.name.slice(0, 100),
-    name_en: input.name_en.slice(0, 100),
+    name: input.name.slice(0, 50),
+    name_en: input.name_en.slice(0, 50),
     category: input.category.slice(0, 100),
     image: sanitizeUrl(input.image),
     location: input.location.slice(0, 200),
